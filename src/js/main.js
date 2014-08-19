@@ -55,7 +55,7 @@ function loadBugs() {
 				}
 
 				addColumn(tr, linkBug(b.id));
-				addColumn(tr, b.summary);
+				addColumn(tr, linkBug(b.id, b.summary));
 				addColumn(tr, assignedTo);
 				addColumn(tr, b.last_change_time);
 			});
@@ -87,6 +87,7 @@ function addColumn(row, txt) {
 	td.innerHTML = txt;
 }
 
-function linkBug(id) {
-	return printf('<a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=%d">%d</a>', id, id);
+function linkBug(id, linkText) {
+	linkText = linkText !== undefined ? linkText : id;
+	return printf('<a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=%d">%s</a>', id, linkText);
 }
