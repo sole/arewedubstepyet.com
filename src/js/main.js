@@ -47,9 +47,15 @@ function loadBugs() {
 			summary.innerHTML = printf('Found %d bugs', bugs.length);
 			bugs.forEach(function(b) {
 				var tr = resultsTable.insertRow(-1);
+				var assignedTo = b.assigned_to.name;
+
+				if(assignedTo === 'nobody') {
+					tr.classList.add('unassigned');
+				}
+
 				addColumn(tr, linkBug(b.id));
 				addColumn(tr, b.summary);
-				addColumn(tr, b.assigned_to.name);
+				addColumn(tr, assignedTo);
 				addColumn(tr, b.last_change_time);
 			});
 		} else {
