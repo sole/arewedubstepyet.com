@@ -97,6 +97,13 @@ h2, #summary {
 	color: #888;
 }
 
+.badge {
+	background-color: #DD0;
+	color: #333;
+	padding: 3px;
+	border-radius: 10px;
+}
+
 footer {
 	padding-top: 1rem;
 	color: #666;

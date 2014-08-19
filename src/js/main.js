@@ -1,5 +1,12 @@
 var printf = require('printf');
-
+// Map meta bug numbers to corresponding Firefox version milestone
+var VERSIONS = {
+	"980501": "32",
+	"1022248": "33",
+	"1040352": "34",
+	"1055215": "35"
+};
+var metaBugs = Object.keys(VERSIONS);
 
 var loadingPane;
 var resultsPane;
@@ -21,13 +28,13 @@ function init() {
 	hide(resultsPane);
 
 	loadBugs();
-	
+
 }
 
 function loadBugs() {
 
 	var bugzilla_url = 'https://bugzilla.mozilla.org/buglist.cgi?resolution=---&classification=Client%20Software&query_format=advanced&bug_status=UNCONFIRMED&bug_status=NEW&component=Developer%20Tools%3A%20Web%20Audio%20Editor&product=Firefox&list_id=11023580';
-	var query_url = 'https://bugzilla.mozilla.org/bzapi/bug?resolution=---&classification=Client%20Software&query_format=advanced&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=REOPENED&component=Developer%20Tools%3A%20Web%20Audio%20Editor&product=Firefox&include_fields=id&include_fields=assigned_to&include_fields=summary&include_fields=last_change_time';
+	var query_url = 'https://bugzilla.mozilla.org/bzapi/bug?resolution=---&classification=Client%20Software&query_format=advanced&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=REOPENED&component=Developer%20Tools%3A%20Web%20Audio%20Editor&product=Firefox&include_fields=id&include_fields=assigned_to&include_fields=summary&include_fields=last_change_time&include_fields=blocks';
 	var request = new XMLHttpRequest();
 	request.open("GET", query_url);
 	request.setRequestHeader('Accept', 'application/json');
@@ -39,7 +46,7 @@ function loadBugs() {
 
 	function onRequestLoad() {
 		console.log(request.response);
-		
+
 		var res = request.response;
 		var bugs = res.bugs !== undefined ? res.bugs : [];
 		resultsTable.innerHTML = '';
@@ -54,6 +61,7 @@ function loadBugs() {
 					tr.classList.add('unassigned');
 				}
 
+				addColumn(tr, versionBadge(b.blocks));
 				addColumn(tr, linkBug(b.id));
 				addColumn(tr, linkBug(b.id, b.summary));
 				addColumn(tr, assignedTo);
@@ -73,7 +81,6 @@ function loadBugs() {
 
 }
 
-
 function show(el) {
 	el.style.display = 'block';
 }
@@ -90,4 +97,15 @@ function addColumn(row, txt) {
 function linkBug(id, linkText) {
 	linkText = linkText !== undefined ? linkText : id;
 	return printf('<a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=%d">%s</a>', id, linkText);
+}
+
+function versionBadge (blocks) {
+	var blocker;
+	for (var i = 0; i < blocks.length; i++) {
+		blocker = blocks[i] + '';
+		if (~metaBugs.indexOf(blocker)) {
+			return printf('<a class="badge" target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=%d">%s</a>', blocker, 'Fx' + VERSIONS[blocker]);
+		}
+	}
+	return '';
 }
