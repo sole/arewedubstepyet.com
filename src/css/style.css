@@ -7,20 +7,103 @@
 body {
 	display: flex;
 	flex-direction: column;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding: 2rem 0;
+	color: #222;
+	background: #dd0;
+	background-image: repeating-linear-gradient(135deg, transparent, transparent 35px, rgba(0,0,0,1) 35px, rgba(0,0,0,1) 70px);
+	background-attachment: fixed;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	border-bottom: 2px dotted #222;
+}
+
+a:hover {
+	color: #fff;
+	background: #222;
+}
+
+#wrapper {
+	max-width: 50rem;
+	margin: 0 auto;
+	background: #fff;
+	padding: 1rem;
+	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+	position: relative;
 }
 
 header {
 	flex: 1;
+	border-bottom: 1rem solid #000;
+	transition: all 0.2s ease-in-out;
+}
+
+header:hover {
+	transform: rotate(-1deg);
+}
+
+h1 {
+	line-height: 5rem;
+	font-size: 6rem;
+	text-transform: uppercase;
+
+}
+
+h2 {
+	font-size: 1.5rem;
+}
+
+h2, #summary {
+	margin: 1rem 0;
+}
+
+#summary {
+	font-size: 1.5rem;
 }
 
 .panes {
 	flex: 2;
+	border-bottom: 3px solid black;
+	padding: 1rem 0;
 }
 
 #results {
 	display: none;
+	line-height: 1.6;
+}
+
+#results table tr {
+	background: transparent;
+	transition: all 0.2s ease-in;
+}
+
+#results table tr:hover {
+	background: #eee;
+}
+
+#results table td {
+	padding: 0.25rem 0;
+	vertical-align: top;
+}
+
+#results table td + td {
+	padding-left: 0.25rem;
+}
+
+#results table tr td:first-child {
+	text-align: right;
 }
 
 .unassigned {
 	color: #888;
+}
+
+footer {
+	padding-top: 1rem;
+	color: #666;
+	text-transform: uppercase;
+	font-size: 80%;
 }

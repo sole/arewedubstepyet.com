@@ -26,6 +26,7 @@ function init() {
 
 function loadBugs() {
 
+	var bugzilla_url = 'https://bugzilla.mozilla.org/buglist.cgi?resolution=---&classification=Client%20Software&query_format=advanced&bug_status=UNCONFIRMED&bug_status=NEW&component=Developer%20Tools%3A%20Web%20Audio%20Editor&product=Firefox&list_id=11023580';
 	var query_url = 'https://bugzilla.mozilla.org/bzapi/bug?resolution=---&classification=Client%20Software&query_format=advanced&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=REOPENED&component=Developer%20Tools%3A%20Web%20Audio%20Editor&product=Firefox&include_fields=id&include_fields=assigned_to&include_fields=summary&include_fields=last_change_time';
 	var request = new XMLHttpRequest();
 	request.open("GET", query_url);
@@ -44,7 +45,7 @@ function loadBugs() {
 		resultsTable.innerHTML = '';
 
 		if(bugs.length) {
-			summary.innerHTML = printf('Found %d bugs', bugs.length);
+			summary.innerHTML = printf('Found <a href="%s">%d bugs</a>.', bugzilla_url, bugs.length);
 			bugs.forEach(function(b) {
 				var tr = resultsTable.insertRow(-1);
 				var assignedTo = b.assigned_to.name;
