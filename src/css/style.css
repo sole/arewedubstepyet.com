@@ -21,17 +21,12 @@ a {
 	border-bottom: 1px solid #ccc;
 }
 
-/*a:hover {
-	color: #fff;
-	background: #222;
-}*/
-
 #wrapper {
 	max-width: 55rem;
 	margin: 0 auto;
 	background: #fff;
 	padding: 1rem 2rem;
-	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 3rem rgba(0, 0, 0, 0.95);
 	position: relative;
 }
 
