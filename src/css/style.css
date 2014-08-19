@@ -3,3 +3,20 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+h1 {
+	flex: 1;
+}
+
+.panes {
+	flex: 2;
+}
+
+#results {
+	display: none;
+}
