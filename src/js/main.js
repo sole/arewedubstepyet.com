@@ -4,6 +4,7 @@ var printf = require('printf');
 var loadingPane;
 var resultsPane;
 var resultsTable;
+var summary;
 
 init();
 
@@ -14,6 +15,7 @@ function init() {
 	loadingPane = document.getElementById('loading');
 	resultsPane = document.getElementById('results');
 	resultsTable = resultsPane.querySelector('table');
+	summary = document.getElementById('summary');
 
 	show(loadingPane);
 	hide(resultsPane);
@@ -42,6 +44,7 @@ function loadBugs() {
 		resultsTable.innerHTML = '';
 
 		if(bugs.length) {
+			summary.innerHTML = printf('Found %d bugs', bugs.length);
 			bugs.forEach(function(b) {
 				var tr = resultsTable.insertRow(-1);
 				addColumn(tr, linkBug(b.id));
@@ -50,6 +53,7 @@ function loadBugs() {
 				addColumn(tr, b.last_change_time);
 			});
 		} else {
+			summary.innerHTML = 'ZARRO BUGS FOUND';
 		}
 
 		show(resultsPane);

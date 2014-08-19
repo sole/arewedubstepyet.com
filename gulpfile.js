@@ -10,7 +10,7 @@ gulp.task('lint', function() {
 		.pipe(jshint.reporter('default'));
 });
 
-gulp.task('build', ['build-js', 'build-html', 'build-css']);
+gulp.task('build', ['build-js', 'build-html', 'build-css', 'build-data']);
 
 gulp.task('build-js', function() {
 	return gulp.src('src/js/main.js')
@@ -29,6 +29,11 @@ gulp.task('build-html', function() {
 gulp.task('build-css', function() {
 	return gulp.src('src/css/style.css')
 		.pipe(gulp.dest('./build/css'));
+});
+
+gulp.task('build-data', function() {
+	return gulp.src('src/data/**/*')
+		.pipe(gulp.dest('./build/data'));
 });
 
 gulp.task('watch', function() {
