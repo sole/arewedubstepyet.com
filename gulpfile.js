@@ -3,6 +3,8 @@ var jshint = require('gulp-jshint');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
+var uglify = require('gulp-uglify');
+
 
 gulp.task('lint', function() {
 	return gulp.src('src/js/**/*.js')
@@ -18,6 +20,7 @@ gulp.task('build-js', function() {
 			insertGlobals: true,
 			debug: !gulp.env.production // TODO fix to get rid of the deprecated notice
 		}))
+		.pipe(uglify())
 		.pipe(gulp.dest('./build/js'));
 });
 
