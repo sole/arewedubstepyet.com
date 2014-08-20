@@ -22,6 +22,7 @@ a {
 }
 
 #wrapper {
+	width: 80%;
 	max-width: 55rem;
 	margin: 0 auto;
 	background: #fff;
@@ -89,7 +90,7 @@ h2, #summary {
 	padding-left: 0.25rem;
 }
 
-#results table tr td:first-child {
+#results table tr td:nth-child(2n) {
 	text-align: right;
 }
 
@@ -110,4 +111,32 @@ footer {
 	text-transform: uppercase;
 	font-size: 80%;
 	line-height: 1.5;
+}
+
+@media(max-width: 960px) {
+	body {
+		padding: 1rem 0;
+	}
+	
+	#wrapper {
+		padding: 1rem;
+		width: 90%;
+	}
+	
+	h1 {
+		line-height: 2rem;
+		font-size: 2.5rem;
+	}
+
+	h2 {
+		font-size: 1rem;
+	}
+
+	tr {
+		xdisplay: inline;
+	}
+
+	td {
+		display: inline-block;
+	}
 }
