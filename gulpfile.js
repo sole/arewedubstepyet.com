@@ -5,9 +5,14 @@ var rename = require('gulp-rename');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
 var yargs = require('yargs');
+var fs = require('fs');
+var insert = require('gulp-insert');
+
+var production = !!(yargs.argv.production);
+var analytics_code = fs.readFileSync('src/js/ga.js');
 
 gulp.task('lint', function() {
-	return gulp.src('src/js/**/*.js')
+	return gulp.src('src/js/main.js')
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
@@ -18,9 +23,10 @@ gulp.task('build-js', function() {
 	return gulp.src('src/js/main.js')
 		.pipe(browserify({
 			insertGlobals: true,
-			debug: !yargs.argv.production
+			debug: production
 		}))
 		.pipe(uglify())
+		.pipe(insert.append(analytics_code))
 		.pipe(gulp.dest('./build/js'));
 });
 
