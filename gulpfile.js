@@ -26,7 +26,7 @@ gulp.task('build-js', function() {
 			insertGlobals: true,
 			debug: !production
 		}))
-		.pipe(uglify())
+		.pipe(gulpif(production, uglify()))
 		.pipe(gulpif(production, insert.append(analytics_code)))
 		.pipe(gulp.dest('./build/js'));
 });
