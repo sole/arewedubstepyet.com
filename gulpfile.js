@@ -14,7 +14,7 @@ var analytics_code = fs.readFileSync('src/js/ga.js');
 
 gulp.task('lint', function() {
 	return gulp.src('src/js/main.js')
-		.pipe(jshint())
+		.pipe(jshint({ lookup: false }))
 		.pipe(jshint.reporter('default'));
 });
 
